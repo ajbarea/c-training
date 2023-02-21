@@ -25,3 +25,12 @@ To clean up the project folder run:
 ```
 make clean
 ```
+
+## Usage
+Each project has its own functionality and purpose. You can find more details about each project in its respective folder.
+Here is a brief overview of the projects:
+- [ ] P1-Hiya: Simple Hello world program to practice C and makefile syntax
+- [ ] P2-FileIO: Turn text files into a linked list and vice versa
+- [ ] P3-Fruit: Creates a text file that stores Fruit data
+- [ ] P4-Manga: Reads a CSV file and stores data into a linked list
+- [ ] P5-SQL: Practice with Embedded SQL in C
