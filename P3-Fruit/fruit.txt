@@ -1,5 +1,0 @@
-apple,red,100
-banana,yellow,120
-orange,orange,150
-grape,purple,5
-strawberry,red,10
