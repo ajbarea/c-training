@@ -53,7 +53,17 @@ int main() {
 		// allocate memory for new manga node
 		struct Manga* newManga = (struct Manga*)malloc(sizeof(struct Manga));
 		newManga->title = strdup(manga); // copy string values into manga
+		if(newManga->title == NULL) { // check if strdup failed
+			printf(">> ERROR string duplication newManga->title\n");
+			freeManga(newManga); // free partially allocated manga node
+			return -1;
+		}
 		newManga->author = strdup(author);
+		if(newManga->author == NULL) { // check if strdup failed
+			printf(">> ERROR string duplication newManga->author\n");
+			freeManga(newManga); // free partially allocated manga node
+			return -1;
+		}
 		newManga->year = year;
 		newManga->next = NULL;
 
