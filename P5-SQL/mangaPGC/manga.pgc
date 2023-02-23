@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+	
+	// CONNECT   - tcp:postgresql://hostname[:port][/dbname][?options]
+	EXEC SQL CONNECT TO tcp:postgresql://localhost:5432/postgres USER postgres USING postgres;
+
+	// CREATE TABLE
+	EXEC SQL CREATE TABLE IF NOT EXISTS manga (
+		id SERIAL,
+		name VARCHAR(100) NOT NULL,
+		author VARCHAR(100)
+	);
+
+	// INSERT INTO
+	EXEC SQL INSERT INTO manga VALUES
+		(DEFAULT, 'Berserk', 'Kentaro Miura'),
+		(DEFAULT, 'Gantz', 'Hiroya Oku'),
+		(DEFAULT, 'One Piece', 'Eiichiro Oda');
+	
+	// COMMIT changes to database
+	EXEC SQL COMMIT;
+	
+	return 0;
+}

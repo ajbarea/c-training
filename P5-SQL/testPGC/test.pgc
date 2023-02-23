@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sqlca.h>
+
+EXEC SQL BEGIN DECLARE SECTION;
+char *dbname = "testdb";
+char *user = "postgres";
+char *password = "postgres";
+char version[100];
+EXEC SQL END DECLARE SECTION;
+
+int main()
+{
+    EXEC SQL CONNECT TO :dbname USER :user USING :password;
+    if (sqlca.sqlcode != 0)
+    {
+        printf("Connection failed: %s\n", sqlca.sqlerrm.sqlerrmc);
+        exit(1);
+    }
+    else
+    {
+        printf("Connection successful\n");
+    }
+
+    EXEC SQL SELECT version() INTO :version;
+    if (sqlca.sqlcode != 0)
+    {
+        printf("Query failed: %s\n", sqlca.sqlerrm.sqlerrmc);
+        exit(1);
+    }
+    else
+    {
+        printf("PostgreSQL version: %s\n", version);
+    }
+
+    EXEC SQL DISCONNECT;
+}
