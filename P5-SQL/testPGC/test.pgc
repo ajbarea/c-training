@@ -1,37 +1,45 @@
+/*
+This program connects to a PostgreSQL database using sqlca.h library, executes 
+a query to get the PostgreSQL version, and prints it to the standard output.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlca.h>
 
+// Declare variables for database connection
 EXEC SQL BEGIN DECLARE SECTION;
-char *dbname = "testdb";
+char *dbname = "postgres";
 char *user = "postgres";
 char *password = "postgres";
 char version[100];
 EXEC SQL END DECLARE SECTION;
 
-int main()
-{
+int main() {
+	// Connect to database using variables
     EXEC SQL CONNECT TO :dbname USER :user USING :password;
-    if (sqlca.sqlcode != 0)
-    {
+	
+	// Check if connection was successful
+    if (sqlca.sqlcode != 0) {
         printf("Connection failed: %s\n", sqlca.sqlerrm.sqlerrmc);
         exit(1);
     }
-    else
-    {
+    else {
         printf("Connection successful\n");
     }
 
+	// Execute a query to get PostgreSQL version
     EXEC SQL SELECT version() INTO :version;
-    if (sqlca.sqlcode != 0)
-    {
+	
+	// Check if query was successful
+    if (sqlca.sqlcode != 0) {
         printf("Query failed: %s\n", sqlca.sqlerrm.sqlerrmc);
         exit(1);
     }
-    else
-    {
+    else {
         printf("PostgreSQL version: %s\n", version);
     }
 
+	// Disconnect from database
     EXEC SQL DISCONNECT;
 }
