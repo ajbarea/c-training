@@ -1,3 +1,10 @@
+/*
+This program reads data from a file called manga.txt and creates a linked list of Manga structs. 
+Each Manga struct contains the title, author and year of publication of a manga series. The program 
+prints out the data from the file and from the linked list, and then frees the memory allocated 
+for each Manga struct.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
