@@ -1,24 +1,29 @@
+/*
+This program uses embedded SQL to connect to a PostgreSQL database.
+It then creates and populates a table named manga with some data.
+*/
+
 #include <stdio.h>
 
 int main() {
-	
-	// CONNECT   - tcp:postgresql://hostname[:port][/dbname][?options]
+	// Connect to a PostgreSQL database using TCP protocol.
+	// The format is tcp:postgresql://hostname[:port][/dbname][?options]
 	EXEC SQL CONNECT TO tcp:postgresql://localhost:5432/postgres USER postgres USING postgres;
-
-	// CREATE TABLE
+	
+	// Create a table named manga if it does not exist already.
 	EXEC SQL CREATE TABLE IF NOT EXISTS manga (
 		id SERIAL,
 		name VARCHAR(100) NOT NULL,
 		author VARCHAR(100)
 	);
 
-	// INSERT INTO
+	// Insert rows into the manga table using default values for serial id.
 	EXEC SQL INSERT INTO manga VALUES
 		(DEFAULT, 'Berserk', 'Kentaro Miura'),
 		(DEFAULT, 'Gantz', 'Hiroya Oku'),
 		(DEFAULT, 'One Piece', 'Eiichiro Oda');
 	
-	// COMMIT changes to database
+	// Commit the changes to the database.
 	EXEC SQL COMMIT;
 	
 	return 0;

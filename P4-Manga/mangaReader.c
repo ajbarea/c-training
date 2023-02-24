@@ -1,3 +1,10 @@
+/*
+This program reads data from a file called manga.txt and creates a linked list of Manga structs. 
+Each Manga struct contains the title, author and year of publication of a manga series. The program 
+prints out the data from the file and from the linked list, and then frees the memory allocated 
+for each Manga struct.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,7 +60,17 @@ int main() {
 		// allocate memory for new manga node
 		struct Manga* newManga = (struct Manga*)malloc(sizeof(struct Manga));
 		newManga->title = strdup(manga); // copy string values into manga
+		if(newManga->title == NULL) { // check if strdup failed
+			printf(">> ERROR string duplication newManga->title\n");
+			freeManga(newManga); // free partially allocated manga node
+			return -1;
+		}
 		newManga->author = strdup(author);
+		if(newManga->author == NULL) { // check if strdup failed
+			printf(">> ERROR string duplication newManga->author\n");
+			freeManga(newManga); // free partially allocated manga node
+			return -1;
+		}
 		newManga->year = year;
 		newManga->next = NULL;
 
