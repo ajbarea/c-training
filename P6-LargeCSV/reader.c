@@ -52,7 +52,7 @@ int main() {
 
 	FILE* file;
 
-	file = fopen("50000_Orders_TXT.txt", "r");
+	file = fopen("50000_Orders.txt", "r");
 	if(file == NULL) {
 		printf(">> ERROR file creation fopen");
 		return -1;
