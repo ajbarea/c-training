@@ -15,16 +15,38 @@ struct Order {
 	struct Order* next;
 };
 
-// printList prints out the linked list of Orders
+// print linked list
 void printList(struct Order* o) {
+	int counter = 0;
 	while (o != NULL) {
-		printf("%s - %s - %lf\n",o->product, o->user, o->price);
+		printf("  --Order %d--\n%d | %s | %lf | %s %s | %lf | %s\n\n", 
+		++counter, o->userId, o->user, o->balance, o->region, o->product, o->price, o->category);
 		o = o->next;
 	}
 }
 
-int main() {
+// free memory allocated for strdup and order nodes
+void freeOrder(struct Order* o) {
+	free(o->product);
+	free(o->user);
+	free(o->region);
+	free(o->category);
+	free(o);
+}
 
+// free all memory allocated
+void freeList(struct Order* head) {
+	struct Order* curr = head;
+	struct Order* next = NULL;
+
+	while(curr != NULL) {
+		next = curr->next;
+		freeOrder(curr);
+		curr = next;
+	}
+}
+
+int main() {
 	struct Order* head = NULL;
 	struct Order* tail = NULL;
 
@@ -69,10 +91,13 @@ int main() {
 		tail = tail->next;
 	}
 
-	printf("> LINKED LIST\n");
-
+	// print linked list
 	printList(head);
-
+	
+	// free allocated memory
+	freeList(head);
+	
+	// close file
 	fclose(file);
 
 	return 0;
